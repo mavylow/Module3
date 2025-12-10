@@ -1,1 +1,1 @@
-var regex = /https?:\/\/[a-z0-9.]+\.(com|net)/gi;
+var regex = /^-?9.*0{4}$/;
