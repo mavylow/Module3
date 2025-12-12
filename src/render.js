@@ -2,10 +2,10 @@ import { Paginator } from "./paginator.js";
 import { photoUrl } from "./consts.js";
 import { handleEvent } from "./events.js";
 import { handleResize } from "./resize.js";
+import { ITEMS_COUNT, ITEMS_PER_PAGE } from "./consts.js";
 
 let nextPage = 2;
-const ITEMS_PER_PAGE = 17;
-const ITEMS_COUNT = 150;
+
 const photos = new Paginator(photoUrl(ITEMS_COUNT), ITEMS_PER_PAGE);
 const listImg = document.getElementById("container-img");
 const resize = document.getElementById("resize");

@@ -1,27 +1,50 @@
+import { ITEMS_COUNT } from "./consts.js";
 const preview = document.getElementById("preview");
+const prev = document.querySelector(".prev");
+const next = document.querySelector(".next");
+const navigation = document.querySelector(".nav");
+prev.addEventListener("click", (e) =>
+  handleNavigation(e, +preview.lastChild.id.match(/\d+/g))
+);
+next.addEventListener("click", (e) =>
+  handleNavigation(e, +preview.lastChild.id.match(/\d+/g))
+);
 
 function changePreview(card) {
   document.querySelectorAll(".list-img-element.active").forEach((card) => {
     card.classList.remove("active");
   });
+  +card.id === 1
+    ? (prev.style.display = "none")
+    : (prev.style.display = "block");
+
+  +card.id === ITEMS_COUNT
+    ? (next.style.display = "none")
+    : (next.style.display = "block");
+  console.log(+card.id);
   card.classList.add("active");
   closePreview.style.display = "block";
+  document.querySelector(".preview-card")?.remove();
+  navigation.style.visibility = "visible";
   const previewCard = card.cloneNode(true);
   previewCard.id = `${card.id}-preview`;
   previewCard.className = "preview-card";
-  preview.innerHTML = "";
+
   preview.append(previewCard);
 }
+
 function resetPreview() {
-  preview.innerHTML = "";
+  document.querySelector(".preview-card")?.remove();
+  navigation.style.display = "none";
   document.querySelectorAll(".list-img-element.active").forEach((card) => {
     card.classList.remove("active");
   });
   closePreview.style.display = "none";
 }
-const closePreview = document.querySelector(".close-button");
 
+const closePreview = document.querySelector(".close-button");
 closePreview.addEventListener("click", resetPreview);
+
 function handleEvent(e) {
   const [x, y] = [e.clientX, e.clientY];
   const card = e.target.closest(".list-img-element");
@@ -62,6 +85,7 @@ function handleEvent(e) {
       e.clientY <= previewRect.bottom
     ) {
       copyOfCard.remove();
+
       changePreview(card);
     } else if (Math.abs(e.clientX - x) <= 20 && Math.abs(e.clientY - y) <= 20) {
       copyOfCard.remove();
@@ -76,4 +100,19 @@ function handleEvent(e) {
 
   document.addEventListener("mouseup", onMouseUp);
 }
+function handleNavigation(e, id) {
+  if (e.target.name === "prev") {
+    const prevCard = document.getElementById(`${id - 1}`);
+    if (prevCard) {
+      changePreview(prevCard);
+    }
+  }
+  if (e.target.name === "next") {
+    const nextCard = document.getElementById(`${id + 1}`);
+    if (nextCard) {
+      changePreview(nextCard);
+    }
+  }
+}
+
 export { handleEvent };
