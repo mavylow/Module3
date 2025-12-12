@@ -12,5 +12,8 @@ class Paginator {
       this.elPerPage * pageIndex
     );
   }
+  setNewPhoto(photo) {
+    this.content = [...this.content, photo];
+  }
 }
 export { Paginator };

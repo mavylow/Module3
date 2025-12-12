@@ -1,6 +1,6 @@
 import { Paginator } from "./paginator.js";
 import { photoUrl } from "./consts.js";
-import { clickAndDrag } from "./events.js";
+import { handleEvent } from "./events.js";
 import { handleResize } from "./resize.js";
 
 let nextPage = 2;
@@ -8,7 +8,6 @@ const ITEMS_PER_PAGE = 17;
 const ITEMS_COUNT = 150;
 const photos = new Paginator(photoUrl(ITEMS_COUNT), ITEMS_PER_PAGE);
 const listImg = document.getElementById("container-img");
-const preview = document.getElementById("preview");
 const resize = document.getElementById("resize");
 const infiniteObserver = new IntersectionObserver(([entry], observer) => {
   if (entry.isIntersecting) {
@@ -48,7 +47,7 @@ const changeButtonVisibility = () => {
 };
 
 listImg.addEventListener("mousedown", (e) => {
-  clickAndDrag(e);
+  handleEvent(e);
 });
 
 resize.addEventListener("mousedown", handleResize);

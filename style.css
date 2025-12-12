@@ -88,11 +88,13 @@ main {
 }
 
 #preview {
+  position: relative;
   background-color: rgb(60, 60, 60);
   box-shadow: 0 0 20px rgb(35, 35, 35) inset;
   display: flex;
   justify-content: center;
   align-items: center;
+  height: 100vh;
 }
 
 .preview-card {
@@ -100,6 +102,7 @@ main {
   height: 90%;
   width: 80%;
 }
+
 .preview-card img {
   height: 90%;
   width: 100%;
@@ -121,7 +124,15 @@ main {
   padding: 5px;
   border-radius: 50%;
 }
-
+.close-button {
+  position: absolute;
+  top: 2em;
+  right: 2em;
+  background-color: transparent;
+  border: none;
+  color: rgb(232, 232, 232);
+  display: none;
+}
 .active {
   box-shadow: 0 0 20px red;
 }

@@ -1,5 +1,6 @@
 const listImg = document.getElementById("container-img");
 const preview = document.getElementById("preview");
+const resize = document.getElementById("resize");
 let isResize = true;
 const handleResize = () => {
   isResize = true;

@@ -5,13 +5,24 @@ function changePreview(card) {
     card.classList.remove("active");
   });
   card.classList.add("active");
+  closePreview.style.display = "block";
   const previewCard = card.cloneNode(true);
   previewCard.id = `${card.id}-preview`;
   previewCard.className = "preview-card";
   preview.innerHTML = "";
   preview.append(previewCard);
 }
-function clickAndDrag(e) {
+function resetPreview() {
+  preview.innerHTML = "";
+  document.querySelectorAll(".list-img-element.active").forEach((card) => {
+    card.classList.remove("active");
+  });
+  closePreview.style.display = "none";
+}
+const closePreview = document.querySelector(".close-button");
+
+closePreview.addEventListener("click", resetPreview);
+function handleEvent(e) {
   const [x, y] = [e.clientX, e.clientY];
   const card = e.target.closest(".list-img-element");
   if (!card) return;
@@ -61,4 +72,4 @@ function clickAndDrag(e) {
 
   document.addEventListener("mouseup", onMouseUp);
 }
-export { clickAndDrag };
+export { handleEvent };
