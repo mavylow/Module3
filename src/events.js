@@ -35,8 +35,11 @@ function handleEvent(e) {
   copyOfCard.style.opacity = "0.8";
   copyOfCard.style.width = card.getBoundingClientRect().width + "px";
   document.body.append(copyOfCard);
-
+  const coordinates = document.createElement("div");
+  coordinates.className = "coordinates";
   function moveCard(pageX, pageY) {
+    coordinates.innerHTML = `x:${pageX},y:${pageX}`;
+    document.body.append(coordinates);
     copyOfCard.style.left = pageX - copyOfCard.offsetWidth / 2 + "px";
     copyOfCard.style.top = pageY - copyOfCard.offsetHeight / 2 + "px";
   }
@@ -48,6 +51,7 @@ function handleEvent(e) {
   }
 
   function onMouseUp(e) {
+    coordinates.remove();
     const preview = document.getElementById("preview");
     const previewRect = preview.getBoundingClientRect();
 
