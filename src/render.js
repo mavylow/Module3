@@ -1,5 +1,7 @@
 import { Paginator } from "./paginator.js";
 import { photoUrl } from "./consts.js";
+import { clickAndDrag } from "./events.js";
+import { handleResize } from "./resize.js";
 
 let nextPage = 2;
 const ITEMS_PER_PAGE = 17;
@@ -7,8 +9,7 @@ const ITEMS_COUNT = 150;
 const photos = new Paginator(photoUrl(ITEMS_COUNT), ITEMS_PER_PAGE);
 const listImg = document.getElementById("container-img");
 const preview = document.getElementById("preview");
-const activeCardId = null;
-
+const resize = document.getElementById("resize");
 const infiniteObserver = new IntersectionObserver(([entry], observer) => {
   if (entry.isIntersecting) {
     observer.unobserve(entry.target);
@@ -45,73 +46,10 @@ const changeButtonVisibility = () => {
     listImg.scrollTop = 0;
   });
 };
-listImg.addEventListener("click", (e) => {
-  const card = e.target.closest(".list-img-element");
-  if (!card) return;
-  changePreview(card);
-});
 
 listImg.addEventListener("mousedown", (e) => {
-  const [x, y] = [e.clientX, e.clientY];
-  const card = e.target.closest(".list-img-element");
-  if (!card) return;
-
-  const copyOfCard = card.cloneNode(true);
-  copyOfCard.id = `${card.id}-copy`;
-
-  copyOfCard.style.position = "fixed";
-  copyOfCard.style.zIndex = 1000;
-  copyOfCard.style.opacity = "0.8";
-
-  document.body.append(copyOfCard);
-
-  function moveCard(pageX, pageY) {
-    copyOfCard.style.left = pageX - copyOfCard.offsetWidth / 2 + "px";
-    copyOfCard.style.top = pageY - copyOfCard.offsetHeight / 2 + "px";
-  }
-
-  //moveCard(e.pageX, e.pageY);
-
-  document.addEventListener("mousemove", onMouseMove);
-
-  function onMouseMove(e) {
-    moveCard(e.pageX, e.pageY);
-  }
-
-  function onMouseUp(e) {
-    const preview = document.getElementById("preview");
-    const previewRect = preview.getBoundingClientRect();
-
-    if (
-      e.clientX >= previewRect.left &&
-      e.clientX <= previewRect.right &&
-      e.clientY >= previewRect.top &&
-      e.clientY <= previewRect.bottom
-    ) {
-      copyOfCard.remove();
-      changePreview(card);
-    } else if (Math.abs(e.clientX - x) <= 20 && Math.abs(e.clientY - y) <= 20) {
-      copyOfCard.remove();
-      changePreview(card);
-    } else {
-      copyOfCard.remove();
-    }
-
-    document.removeEventListener("mousemove", onMouseMove);
-    document.removeEventListener("mouseup", onMouseUp);
-  }
-
-  document.addEventListener("mouseup", onMouseUp);
+  clickAndDrag(e);
 });
+
+resize.addEventListener("mousedown", handleResize);
 loadPost();
-function changePreview(card) {
-  document.querySelectorAll(".list-img-element.active").forEach((card) => {
-    card.classList.remove("active");
-  });
-  card.classList.add("active");
-  const previewCard = card.cloneNode(true);
-  previewCard.id = `${card.id}-preview`;
-  previewCard.className = "preview-card";
-  preview.innerHTML = "";
-  preview.append(previewCard);
-}

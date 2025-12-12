@@ -25,11 +25,13 @@ main {
   overflow-y: auto;
   scroll-behavior: smooth;
   height: 100vh;
+  container-name: list;
+  container-type: inline-size;
 }
 
 .list-img-element {
   height: 250px;
-  width: 190px;
+  width: 90%;
   background-color: rgb(103, 103, 103);
   border-radius: 1em;
   box-shadow: 0 0 20px rgb(59, 59, 59);
@@ -40,7 +42,7 @@ main {
 
 .list-img-element img {
   height: 180px;
-  width: 190px;
+  width: 100%;
   border-radius: 1em 1em 0 0;
   object-fit: cover;
   object-position: top;
@@ -49,7 +51,7 @@ main {
   content: "";
   position: absolute;
   height: 180px;
-  width: 190px;
+  width: 100%;
   background: linear-gradient(
     180deg,
     rgba(0, 0, 0, 0.6) 0%,
@@ -65,13 +67,13 @@ main {
   padding: 0.7em;
 }
 
-#resise {
+#resize {
   position: relative;
   background-color: rgb(167, 167, 167);
   cursor: col-resize;
   user-select: none;
 }
-#resise::before {
+#resize::before {
   content: "";
   display: block;
   position: absolute;
@@ -96,7 +98,7 @@ main {
 .preview-card {
   position: relative;
   height: 90%;
-  width: 100%;
+  width: 80%;
 }
 .preview-card img {
   height: 90%;
@@ -124,7 +126,13 @@ main {
   box-shadow: 0 0 20px red;
 }
 
-@media (max-width: 1100px) {
+@container list (max-width: 800px) {
+  #container-img {
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  }
+}
+
+/* @media (max-width: 1100px) {
   .list-img-element {
     height: 220px;
     width: 170px;
@@ -194,4 +202,4 @@ main {
     height: 150px;
     width: 170px;
   }
-}
+} */
