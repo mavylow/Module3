@@ -14,8 +14,16 @@ const infiniteObserver = new IntersectionObserver(([entry], observer) => {
     observer.unobserve(entry.target);
     if (nextPage <= photos.pages) loadPost(nextPage++);
     if (nextPage > photos.pages) {
-      changeButtonVisibility();
+      changeButtonVisibility("visible");
     }
+  }
+}, {});
+const upButtonObserver = new IntersectionObserver(([entry], observer) => {
+  if (entry.isIntersecting) {
+    changeButtonVisibility("hidden");
+  }
+  if (!entry.isIntersecting && nextPage > photos.pages) {
+    changeButtonVisibility("visible");
   }
 }, {});
 
@@ -32,15 +40,18 @@ const loadPost = (page = 1) => {
     figure.append(figCaption);
     listImg.append(figure);
   });
-
+  const firstFigure = document.querySelector(".list-img-element:first-child");
+  if (firstFigure) {
+    upButtonObserver.observe(firstFigure);
+  }
   const lastFigure = document.querySelector(".list-img-element:last-child");
   if (lastFigure) {
     infiniteObserver.observe(lastFigure);
   }
 };
-const changeButtonVisibility = () => {
+const changeButtonVisibility = (prop) => {
   const up = document.querySelector(".up-button");
-  up.style.display = "block";
+  up.style.visibility = prop;
   up.addEventListener("click", () => {
     listImg.scrollTop = 0;
   });
