@@ -5,17 +5,12 @@ async function findPrimes(start, end) {
   for (let i = 0.1; i <= 1; i += 0.1) {
     let chunkEnd = Math.ceil(i * numbers.length);
     const part = numbers.slice(chunkStart, chunkEnd);
-    const promise = new Promise((resolve) => {
-      setTimeout(() => {
-        const partPrime = findPrimeChunck(part);
-        console.log(`Прогресс ${Math.round(i * 100)}%`, partPrime);
-        resolve(partPrime);
-      }, 0);
-    });
+    const promise = findPrimeChunck(i, part);
     promises.push(promise);
     chunkStart = chunkEnd;
   }
   const res = await Promise.all(promises);
+
   return res.flat();
 }
 const isPrime = (num) => {
@@ -27,8 +22,10 @@ const isPrime = (num) => {
   return true;
 };
 
-const findPrimeChunck = (arr) => {
-  return arr.filter((el) => isPrime(el));
+const findPrimeChunck = async (i, arr) => {
+  let part = arr.filter((el) => isPrime(el));
+  console.log(`Прогресс ${Math.round(i * 100)}%`, part);
+  return part;
 };
 
 export { findPrimes };

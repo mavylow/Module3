@@ -12,7 +12,7 @@ const testClass = () => {
   coffee.setDiscount(0.1);
 
   setTimeout(() => {
-    console.log("Milk AFTER delete:", milk.getDiscount());
+    console.log("Product: ", Product.ProductDiscount);
   }, 1000);
 };
 
@@ -33,6 +33,8 @@ const testObject = () => {
     writable: true,
   });
 };
-// testObject();
+
+// // testObject();
 // testClass();
-//findPrimes(1, 100_000_000);
+const res = await findPrimes(1, 100_000_000);
+console.log(res);
