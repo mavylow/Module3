@@ -3,6 +3,7 @@ import { photoUrl } from "./consts.js";
 import { handleEvent } from "./events.js";
 import { handleResize } from "./resize.js";
 import { ITEMS_COUNT, ITEMS_PER_PAGE } from "./consts.js";
+import { addPhoto } from "./addPhoto.js";
 
 let nextPage = 2;
 
@@ -18,7 +19,7 @@ const infiniteObserver = new IntersectionObserver(([entry], observer) => {
     }
   }
 }, {});
-const upButtonObserver = new IntersectionObserver(([entry], observer) => {
+const upButtonObserver = new IntersectionObserver(([entry]) => {
   if (entry.isIntersecting) {
     changeButtonVisibility("hidden");
   }
@@ -62,4 +63,8 @@ listImg.addEventListener("mousedown", (e) => {
 });
 
 resize.addEventListener("mousedown", handleResize);
+
+const addBtn = document.querySelector(".add-new-img");
+addBtn.addEventListener("click", addPhoto);
+
 loadPost();
