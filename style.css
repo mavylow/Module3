@@ -1,41 +1,95 @@
+:root {
+  --bg-primary: rgb(78, 78, 78);
+  --bg-secondary: rgb(60, 60, 60);
+  --bg-card: rgb(103, 103, 103);
+  --bg-form: rgb(54, 54, 54);
+
+  --text-primary: rgb(232, 232, 232);
+  --text-dark: rgb(54, 54, 54);
+
+  --accent-gray: rgb(167, 167, 167);
+  --border-color: #666;
+
+  --shadow-main: 0 0 20px rgb(59, 59, 59);
+  --shadow-form: 0 10px 1em rgb(37, 37, 37);
+  --shadow-inset: 0 0 20px rgb(35, 35, 35) inset;
+  --shadow-active: 0 0 20px rgb(255, 255, 255);
+
+  --radius-card: 1em;
+  --radius-form: 2em;
+  --radius-small: 0.5em;
+}
+
 html,
 body {
   height: 100%;
   width: 100%;
   margin: 0;
 }
+
 * {
   box-sizing: border-box;
-  color: rgb(232, 232, 232);
+  color: var(--text-primary);
 }
 
 main {
   min-height: 100%;
   display: grid;
   grid-template-columns: 3fr 10px 2fr;
-  color: rgb(232, 232, 232);
+  color: var(--text-primary);
   position: relative;
 }
+
 form {
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: min(50%, 30em);
-  background-color: rgb(54, 54, 54);
+  width: min(50%, 25em);
+  background-color: var(--bg-form);
   display: flex;
   flex-direction: column;
-  padding: 5em 2em;
-  gap: 0.5em;
+  padding: 4em;
+  gap: 0.75em;
   height: 40%;
   z-index: 3;
   display: none;
+  border-radius: var(--radius-form);
+  box-shadow: var(--shadow-form);
+  font-size: 18px;
 }
-form button {
-  color: rgb(54, 54, 54);
+
+form button,
+form input {
+  padding: 0.5em;
+  color: var(--text-dark);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-small);
+  font-size: 1em;
 }
-input[type="file"] {
-  appearance: none;
+
+#image_uploads {
+  padding: 0.5em 0.75em;
+  color: transparent;
+  background-color: #fff;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-small);
+  cursor: pointer;
+}
+
+#image_uploads::file-selector-button {
+  margin-right: 1em;
+  color: #333;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  width: 100%;
+  background-color: #fff;
+}
+
+form input:focus {
+  outline: var(--text-primary);
+  box-shadow: 0 0 0 3px rgba(77, 171, 247, 0.2);
 }
 
 form .close {
@@ -45,6 +99,7 @@ form .close {
   background-color: transparent;
   border: none;
 }
+
 #container-img {
   position: relative;
   display: grid;
@@ -52,7 +107,7 @@ form .close {
   grid-auto-rows: min-content;
   justify-items: center;
   align-items: start;
-  background-color: rgb(78, 78, 78);
+  background-color: var(--bg-primary);
   overflow-y: auto;
   scroll-behavior: smooth;
   height: 100vh;
@@ -63,9 +118,9 @@ form .close {
 .list-img-element {
   height: 250px;
   width: 90%;
-  background-color: rgb(103, 103, 103);
-  border-radius: 1em;
-  box-shadow: 0 0 20px rgb(59, 59, 59);
+  background-color: var(--bg-card);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-main);
   position: relative;
   margin: 0.5em 1em;
   user-select: none;
@@ -74,10 +129,11 @@ form .close {
 .list-img-element img {
   height: 180px;
   width: 100%;
-  border-radius: 1em 1em 0 0;
+  border-radius: var(--radius-card) var(--radius-card) 0 0;
   object-fit: cover;
   object-position: top;
 }
+
 .list-img-element::before {
   content: "";
   position: absolute;
@@ -90,20 +146,22 @@ form .close {
   );
   display: block;
   z-index: 2;
-  border-radius: 1em 1em 0 0;
+  border-radius: var(--radius-card) var(--radius-card) 0 0;
   top: 0;
   right: 0;
 }
+
 .list-img-element figcaption {
   padding: 0.7em;
 }
 
 #resize {
   position: relative;
-  background-color: rgb(167, 167, 167);
+  background-color: var(--accent-gray);
   cursor: col-resize;
   user-select: none;
 }
+
 #resize::before {
   content: "";
   display: block;
@@ -120,8 +178,8 @@ form .close {
 
 #preview {
   position: relative;
-  background-color: rgb(60, 60, 60);
-  box-shadow: 0 0 20px rgb(35, 35, 35) inset;
+  background-color: var(--bg-secondary);
+  box-shadow: var(--shadow-inset);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -138,34 +196,39 @@ form .close {
   width: 100%;
   object-fit: contain;
 }
+
 .add-new-img,
 .up-button {
-  background-color: rgb(232, 232, 232);
-  color: rgb(60, 60, 60);
+  background-color: var(--text-primary);
+  color: var(--bg-secondary);
   font-size: 2em;
   text-decoration: none;
   width: 1.5em;
   height: 1.5em;
   border-radius: 50%;
 }
+
 .up-button {
   position: fixed;
   bottom: 20px;
   right: 20px;
   visibility: hidden;
 }
+
 .close-button {
   position: absolute;
   top: 2em;
   right: 2em;
   background-color: transparent;
   border: none;
-  color: rgb(232, 232, 232);
+  color: var(--text-primary);
   display: none;
 }
+
 .active {
-  box-shadow: 0 0 20px rgb(255, 255, 255);
+  box-shadow: var(--shadow-active);
 }
+
 .coordinates {
   position: absolute;
   top: 0;
@@ -173,8 +236,9 @@ form .close {
   z-index: 100;
   padding: 0.5em 1.5em;
   background-color: rgba(232, 232, 232, 0.7);
-  border: 1px solid rgb(232, 232, 232);
+  border: 1px solid var(--text-primary);
 }
+
 .nav {
   position: absolute;
   bottom: 2em;
@@ -182,21 +246,25 @@ form .close {
   display: flex;
   justify-content: space-between;
 }
+
 .nav button {
   width: 4em;
-  color: rgb(232, 232, 232);
-  background-color: rgb(103, 103, 103);
+  color: var(--text-primary);
+  background-color: var(--bg-card);
 }
+
 .next {
   position: absolute;
   left: 0;
   bottom: 0;
 }
+
 .prev {
   position: absolute;
   right: 0;
   bottom: 0;
 }
+
 .add-new-img {
   position: absolute;
   left: 1em;
