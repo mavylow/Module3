@@ -5,7 +5,7 @@ async function findPrimes(start, end) {
   for (let i = 0.1; i <= 1; i += 0.1) {
     let chunkEnd = Math.ceil(i * numbers.length);
     const part = numbers.slice(chunkStart, chunkEnd);
-    const promise = findPrimeChunck(i, part);
+    const promise = findPrimeChunk(i, part);
     promises.push(promise);
     chunkStart = chunkEnd;
   }
@@ -22,7 +22,7 @@ const isPrime = (num) => {
   return true;
 };
 
-const findPrimeChunck = async (i, arr) => {
+const findPrimeChunk = async (i, arr) => {
   let part = arr.filter((el) => isPrime(el));
   console.log(`Прогресс ${Math.round(i * 100)}%`, part);
   return part;

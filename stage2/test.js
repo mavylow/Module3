@@ -4,16 +4,14 @@ import { person } from "./objectTask.js";
 
 const testClass = () => {
   let milk = new Product("milk", 12);
-  milk.setDiscount(0.06);
-  console.log(milk.getDiscount());
-  milk = null;
-
   let coffee = new Product("coffee", 15);
   coffee.setDiscount(0.1);
-
-  setTimeout(() => {
-    console.log("Product: ", Product.ProductDiscount);
-  }, 1000);
+  milk.setDiscount(0.06);
+  console.log(Product.ProductDiscount);
+  console.log(milk.getDiscount());
+  milk = Product.remove(milk);
+  console.log(milk);
+  console.log(Product.ProductDiscount);
 };
 
 const testObject = () => {
@@ -35,6 +33,6 @@ const testObject = () => {
 };
 
 // // testObject();
-// testClass();
-const res = await findPrimes(1, 100_000_000);
-console.log(res);
+testClass();
+// const res = await findPrimes(1, 100_000_000);
+// console.log(res);
