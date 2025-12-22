@@ -1,3 +1,4 @@
+import { changePreview } from "./events.js";
 const listImg = document.getElementById("container-img");
 
 function addPhoto() {
@@ -5,6 +6,7 @@ function addPhoto() {
     card: null,
     imgUrl: null,
     caption: null,
+    id: listImg.firstChild.id - 1,
   };
 
   const form = document.querySelector("form");
@@ -13,7 +15,7 @@ function addPhoto() {
 
   state.card = document.createElement("figure");
   state.card.className = "list-img-element";
-
+  state.card.id = `${state.id}`;
   state.caption = document.createElement("figcaption");
 
   const inputFileName = document.getElementById("filename");
@@ -33,7 +35,7 @@ function addPhoto() {
     const oldImg = state.card.querySelector("img");
     if (oldImg) {
       oldImg.remove();
-      URL.revokeObjectURL(state.imgUrl);
+      // URL.revokeObjectURL(state.imgUrl);
     }
 
     const img = document.createElement("img");
@@ -56,6 +58,7 @@ function addPhoto() {
 
     state.card.append(state.caption);
     listImg.prepend(state.card);
+    changePreview(state.card);
     cleanup();
   }
 
@@ -70,7 +73,7 @@ function addPhoto() {
     closeBtn.removeEventListener("click", onClose);
 
     if (state.imgUrl) {
-      URL.revokeObjectURL(state.imgUrl);
+      // URL.revokeObjectURL(state.imgUrl);
     }
 
     form.style.display = "none";

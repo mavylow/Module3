@@ -1,20 +1,23 @@
 import { ITEMS_COUNT } from "./consts.js";
 const preview = document.getElementById("preview");
+const listImg = document.getElementById("container-img");
 const prev = document.querySelector(".prev");
 const next = document.querySelector(".next");
 const navigation = document.querySelector(".nav");
-prev.addEventListener("click", (e) =>
-  handleNavigation(e, +preview.lastChild.id.match(/\d+/g))
-);
-next.addEventListener("click", (e) =>
-  handleNavigation(e, +preview.lastChild.id.match(/\d+/g))
-);
+prev.addEventListener("click", (e) => {
+  console.log(preview.lastChild.id);
+  handleNavigation(e, +preview.lastChild.id.match(/-?\d+/g));
+});
+next.addEventListener("click", (e) => {
+  console.log(preview.lastChild.id);
+  handleNavigation(e, +preview.lastChild.id.match(/\d+/g));
+});
 
 function changePreview(card) {
   document.querySelectorAll(".list-img-element.active").forEach((card) => {
     card.classList.remove("active");
   });
-  +card.id === 1
+  +card.id === +listImg.firstChild.id
     ? (prev.style.display = "none")
     : (prev.style.display = "block");
 
@@ -103,6 +106,7 @@ function handleEvent(e) {
 function handleNavigation(e, id) {
   if (e.target.name === "prev") {
     const prevCard = document.getElementById(`${id - 1}`);
+    console.log(`${id - 1}`, prevCard);
     if (prevCard) {
       changePreview(prevCard);
     }
@@ -115,4 +119,4 @@ function handleNavigation(e, id) {
   }
 }
 
-export { handleEvent };
+export { handleEvent, changePreview };
