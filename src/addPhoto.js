@@ -34,10 +34,9 @@ function addPhoto() {
 
     const oldImg = state.card.querySelector("img");
     if (oldImg) {
+      URL.revokeObjectURL(state.imgUrl);
       oldImg.remove();
-      // URL.revokeObjectURL(state.imgUrl);
     }
-
     const img = document.createElement("img");
     state.imgUrl = URL.createObjectURL(files[0]);
     img.src = state.imgUrl;
@@ -63,6 +62,9 @@ function addPhoto() {
   }
 
   function onClose() {
+    if (!listImg.contains(state.card) && state.imgUrl) {
+      URL.revokeObjectURL(state.imgUrl);
+    }
     cleanup();
   }
 
@@ -71,10 +73,6 @@ function addPhoto() {
     inputPhoto.removeEventListener("change", handleInputPhoto);
     submit.removeEventListener("click", onSubmit);
     closeBtn.removeEventListener("click", onClose);
-
-    if (state.imgUrl) {
-      // URL.revokeObjectURL(state.imgUrl);
-    }
 
     form.style.display = "none";
   }

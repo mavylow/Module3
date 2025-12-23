@@ -5,12 +5,10 @@ const prev = document.querySelector(".prev");
 const next = document.querySelector(".next");
 const navigation = document.querySelector(".nav");
 prev.addEventListener("click", (e) => {
-  console.log(preview.lastChild.id);
   handleNavigation(e, +preview.lastChild.id.match(/-?\d+/g));
 });
 next.addEventListener("click", (e) => {
-  console.log(preview.lastChild.id);
-  handleNavigation(e, +preview.lastChild.id.match(/\d+/g));
+  handleNavigation(e, +preview.lastChild.id.match(/-?\d+/g));
 });
 
 function changePreview(card) {
@@ -24,7 +22,7 @@ function changePreview(card) {
   +card.id === ITEMS_COUNT
     ? (next.style.display = "none")
     : (next.style.display = "block");
-  console.log(+card.id);
+
   card.classList.add("active");
   closePreview.style.display = "block";
   document.querySelector(".preview-card")?.remove();
@@ -106,7 +104,6 @@ function handleEvent(e) {
 function handleNavigation(e, id) {
   if (e.target.name === "prev") {
     const prevCard = document.getElementById(`${id - 1}`);
-    console.log(`${id - 1}`, prevCard);
     if (prevCard) {
       changePreview(prevCard);
     }
