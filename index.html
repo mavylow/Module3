@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Photo Gallery" />
+    <link
+      rel="stylesheet"
+      href="https://necolas.github.io/normalize.css/7.0.0/normalize.css"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <link rel="icon" href="assets/img/icon/icon.png" />
+    <title>Photo Gallery</title>
+  </head>
+  <body>
+    <main>
+      <section id="container-img"></section>
+      <div id="resize"></div>
+      <section id="preview">
+        <button class="add-new-img">+</button>
+        <div class="nav">
+          <button class="prev" name="prev">←</button
+          ><button class="next" name="next">→</button>
+        </div>
+      </section>
+
+      <button class="close-button">╳</button>
+      <button alt="back to top" class="up-button">↑</button>
+
+      <form onsubmit="event.preventDefault()">
+        <label for="filename">Write name of a photo</label>
+        <input
+          type="text"
+          id="filename"
+          placeholder="Input name of the photo"
+        />
+        <label for="image_uploads">Select a file</label>
+        <input
+          type="file"
+          accept="image/*"
+          id="image_uploads"
+          name="image_uploads"
+          placeholder="select file"
+          multiple="false"
+        />
+        <button type="submit" class="submit">Add Card</button>
+        <button type="button" class="close">╳</button>
+      </form>
+    </main>
+  </body>
+  <script type="module" src="src/render.js"></script>
+</html>
